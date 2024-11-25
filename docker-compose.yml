@@ -1,0 +1,10 @@
+services:
+  goapp:
+    image: golang:1.23
+    container_name: go-auction
+    entrypoint: sh -c "tail -f /dev/null"
+    volumes:
+      - .:/go/src/go-auction
+    ports:
+      - "8080:8080"
+    working_dir: /go/src/go-auction
