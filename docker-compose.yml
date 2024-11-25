@@ -8,3 +8,8 @@ services:
     ports:
       - "8080:8080"
     working_dir: /go/src/go-auction
+  mongodb:
+    image: mongo:8
+    container_name: mongo-auction
+    ports:
+      - "27017:27017"
