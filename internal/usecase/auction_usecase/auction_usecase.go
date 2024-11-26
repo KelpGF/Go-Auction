@@ -5,7 +5,9 @@ import (
 	"time"
 
 	"github.com/KelpGF/Go-Auction/internal/entity/auction_entity"
+	"github.com/KelpGF/Go-Auction/internal/entity/bid_entity"
 	"github.com/KelpGF/Go-Auction/internal/internal_error"
+	"github.com/KelpGF/Go-Auction/internal/usecase/bid_usecase"
 )
 
 type AuctionInputDTO struct {
@@ -28,6 +30,11 @@ type AuctionOutputDTO struct {
 type ProductCondition int
 type AuctionStatus int
 
+type WinningInfoOutputDTO struct {
+	Auction *AuctionOutputDTO         `json:"auction"`
+	Bid     *bid_usecase.BidOutputDTO `json:"bid,omitempty"`
+}
+
 type AuctionUseCaseInterface interface {
 	CreateAuction(
 		ctx context.Context, input *AuctionInputDTO,
@@ -42,8 +49,13 @@ type AuctionUseCaseInterface interface {
 		status AuctionStatus,
 		category, productName string,
 	) ([]*AuctionOutputDTO, *internal_error.InternalError)
+
+	FindWinningBidByAuctionID(
+		ctx context.Context, auctionID string,
+	) (*WinningInfoOutputDTO, *internal_error.InternalError)
 }
 
 type AuctionUseCase struct {
 	AuctionRepository auction_entity.AuctionRepositoryInterface
+	BidRepository     bid_entity.BidRepositoryInterface
 }
