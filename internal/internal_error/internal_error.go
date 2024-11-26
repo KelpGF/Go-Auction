@@ -16,6 +16,13 @@ func NewNotFoundError(message string) *InternalError {
 	}
 }
 
+func NewBadRequestError(message string) *InternalError {
+	return &InternalError{
+		Message: message,
+		Err:     "bad_request",
+	}
+}
+
 func NewInternalServerError(message string) *InternalError {
 	return &InternalError{
 		Message: message,
