@@ -19,7 +19,7 @@ type AuctionRepository struct {
 	Collection *mongo.Collection
 }
 
-func NewAuctionRepository(database *mongo.Database) *AuctionRepository {
+func NewAuctionRepository(database *mongo.Database) auction_entity.AuctionRepositoryInterface {
 	return &AuctionRepository{
 		Collection: database.Collection("auctions"),
 	}
