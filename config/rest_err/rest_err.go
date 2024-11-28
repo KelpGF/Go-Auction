@@ -1,6 +1,10 @@
 package rest_err
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/KelpGF/Go-Auction/internal/internal_error"
+)
 
 type RestErr struct {
 	Message string   `json:"message"`
@@ -18,12 +22,12 @@ func (e *RestErr) Error() string {
 	return e.Message
 }
 
-func NewBadRequestError(message string) *RestErr {
+func NewBadRequestError(message string, causes ...Causes) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "bad_request",
 		Code:    http.StatusBadRequest,
-		Causes:  nil,
+		Causes:  causes,
 	}
 }
 
@@ -42,5 +46,16 @@ func NewNotFoundError(message string) *RestErr {
 		Err:     "not_found",
 		Code:    http.StatusNotFound,
 		Causes:  nil,
+	}
+}
+
+func ConvertErr(internal_error *internal_error.InternalError) *RestErr {
+	switch internal_error.Err {
+	case "bad_request":
+		return NewBadRequestError(internal_error.Error())
+	case "not_found":
+		return NewNotFoundError(internal_error.Error())
+	default:
+		return NewInternalServerError(internal_error.Error(), internal_error)
 	}
 }
