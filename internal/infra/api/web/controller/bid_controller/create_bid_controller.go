@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (controller *bidController) Create(c *gin.Context) {
+func (controller *BidController) Create(c *gin.Context) {
 	var bidInputDTO *bid_usecase.BidInputDTO
 
 	if err := c.ShouldBindJSON(&bidInputDTO); err != nil {

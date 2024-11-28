@@ -10,7 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (controller *auctionController) FindById(c *gin.Context) {
+func (controller *AuctionController) FindById(c *gin.Context) {
 	auctionId := c.Param("id")
 
 	if err := uuid.Validate(auctionId); err != nil {
@@ -33,7 +33,7 @@ func (controller *auctionController) FindById(c *gin.Context) {
 	c.JSON(http.StatusOK, auction)
 }
 
-func (controller *auctionController) FindAuctions(c *gin.Context) {
+func (controller *AuctionController) FindAuctions(c *gin.Context) {
 	status := c.Query("status")
 	category := c.Query("category")
 	productName := c.Query("product_name")
@@ -64,7 +64,7 @@ func (controller *auctionController) FindAuctions(c *gin.Context) {
 	c.JSON(http.StatusOK, auctions)
 }
 
-func (controller *auctionController) FindWinningBidByAuctionID(c *gin.Context) {
+func (controller *AuctionController) FindWinningBidByAuctionID(c *gin.Context) {
 	auctionId := c.Param("id")
 
 	if err := uuid.Validate(auctionId); err != nil {

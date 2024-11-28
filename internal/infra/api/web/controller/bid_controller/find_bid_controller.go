@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (controller *bidController) FindByAuctionId(c *gin.Context) {
+func (controller *BidController) FindByAuctionId(c *gin.Context) {
 	auctionId := c.Param("auction_id")
 
 	if err := uuid.Validate(auctionId); err != nil {
