@@ -1,0 +1,29 @@
+###
+GET http://localhost:8080/user/07175b0c-c6f0-43f1-9fe2-7e5fc1c3cd68 HTTP/1.1
+
+###
+GET http://localhost:8080/auction?status=0 HTTP/1.1
+
+###
+GET http://localhost:8080/auction/3329e254-189b-4655-87be-cbe596ebd9e9/winner HTTP/1.1
+
+###
+POST http://localhost:8080/auction HTTP/1.1
+Content-Type: application/json
+
+{
+  "product_name": "test prod",
+  "category": "test cat",
+  "description": "test description",
+  "condition": 2
+}
+
+###
+POST http://localhost:8080/bid HTTP/1.1
+Content-Type: application/json
+
+{
+  "user_id": "07175b0c-c6f0-43f1-9fe2-7e5fc1c3cd68",
+  "auction_id": "3329e254-189b-4655-87be-cbe596ebd9e9",
+  "amount": 2
+}
