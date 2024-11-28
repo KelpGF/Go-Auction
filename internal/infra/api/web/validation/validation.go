@@ -31,7 +31,7 @@ func ValidateErr(validationErr error) *rest_err.RestErr {
 	var jsonValidation validator.ValidationErrors
 
 	if errors.As(validationErr, &jsonErr) {
-		return rest_err.NewNotFoundError("invalid json body")
+		return rest_err.NewNotFoundError("Invalid JSON body")
 	}
 
 	if errors.As(validationErr, &jsonValidation) {

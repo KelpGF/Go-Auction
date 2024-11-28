@@ -38,7 +38,7 @@ type WinningInfoOutputDTO struct {
 type AuctionUseCaseInterface interface {
 	CreateAuction(
 		ctx context.Context, input *AuctionInputDTO,
-	) *internal_error.InternalError
+	) (string, *internal_error.InternalError)
 
 	FindAuctionByID(
 		ctx context.Context, id string,
@@ -58,4 +58,14 @@ type AuctionUseCaseInterface interface {
 type AuctionUseCase struct {
 	AuctionRepository auction_entity.AuctionRepositoryInterface
 	BidRepository     bid_entity.BidRepositoryInterface
+}
+
+func NewAuctionUseCase(
+	auctionRepository auction_entity.AuctionRepositoryInterface,
+	bidRepository bid_entity.BidRepositoryInterface,
+) AuctionUseCaseInterface {
+	return &AuctionUseCase{
+		AuctionRepository: auctionRepository,
+		BidRepository:     bidRepository,
+	}
 }
