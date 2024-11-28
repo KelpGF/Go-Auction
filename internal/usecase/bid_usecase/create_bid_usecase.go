@@ -66,14 +66,16 @@ func (uc *BidUsecase) triggerCreateBatchRoutine(ctx context.Context) {
 					uc.resetBatch()
 				}
 			case <-uc.timer.C:
+				logger.Info("Bid batch insert timer triggered")
+
 				if len(bidBatch) > 0 {
 					err := uc.insertBatch(ctx, bidBatch)
 					if err != nil {
 						uc.logInsertBatchError(err)
 					}
-
-					uc.resetBatch()
 				}
+
+				uc.resetBatch()
 			}
 		}
 	}()
