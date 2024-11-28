@@ -11,7 +11,7 @@ import (
 
 const (
 	MONGODB_URL    = "MONGODB_URL"
-	MONGODB_DBNAME = "MONGODB_DB"
+	MONGODB_DBNAME = "MONGODB_DBNAME"
 )
 
 func NewMongoDBConnection(ctx context.Context) (*mongo.Database, error) {

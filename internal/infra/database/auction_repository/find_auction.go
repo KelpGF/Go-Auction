@@ -22,12 +22,12 @@ func (r *AuctionRepository) FindAuctionById(ctx context.Context, id string) (*au
 
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
-			logger.Error("User not found with ID: "+id, err)
-			return nil, internal_error.NewNotFoundError("User not found with ID: " + id)
+			logger.Error("Auction not found with ID: "+id, err)
+			return nil, internal_error.NewNotFoundError("Auction not found with ID: " + id)
 		}
 
-		logger.Error("Error finding user with ID: "+id, err)
-		return nil, internal_error.NewInternalServerError("Error finding user with ID: " + id)
+		logger.Error("Error finding auction with ID: "+id, err)
+		return nil, internal_error.NewInternalServerError("Error finding auction with ID: " + id)
 	}
 
 	auctionEntity := &auction_entity.Auction{

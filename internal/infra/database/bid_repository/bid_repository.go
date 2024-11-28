@@ -1,8 +1,8 @@
 package bid_repository
 
 import (
+	"github.com/KelpGF/Go-Auction/internal/entity/auction_entity"
 	"github.com/KelpGF/Go-Auction/internal/entity/bid_entity"
-	"github.com/KelpGF/Go-Auction/internal/infra/database/auction_repository"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -16,12 +16,12 @@ type BidEntityMongo struct {
 
 type BidRepository struct {
 	Collection        *mongo.Collection
-	AuctionRepository *auction_repository.AuctionRepository
+	AuctionRepository auction_entity.AuctionRepositoryInterface
 }
 
 func NewBidRepository(
 	database *mongo.Database,
-	auctionRepository *auction_repository.AuctionRepository,
+	auctionRepository auction_entity.AuctionRepositoryInterface,
 ) bid_entity.BidRepositoryInterface {
 	return &BidRepository{
 		Collection:        database.Collection("bids"),

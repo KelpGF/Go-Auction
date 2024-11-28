@@ -18,10 +18,7 @@ func (r *BidRepository) CreateBid(ctx context.Context, bidEntities []*bid_entity
 		go func(bid *bid_entity.Bid) {
 			defer wg.Done()
 
-			var err error = nil
-
 			auction, err := r.AuctionRepository.FindAuctionById(ctx, bid.AuctionID)
-
 			if err != nil {
 				logger.Error("Error finding auction with ID: "+bid.AuctionID, err)
 				return
@@ -39,9 +36,9 @@ func (r *BidRepository) CreateBid(ctx context.Context, bidEntities []*bid_entity
 				Timestamp: bid.Timestamp.Unix(),
 			}
 
-			_, err = r.Collection.InsertOne(ctx, bidMongo)
-			if err != nil {
-				logger.Error("Error inserting bid", err)
+			_, errMongo := r.Collection.InsertOne(ctx, bidMongo)
+			if errMongo != nil {
+				logger.Error("Error inserting bid", errMongo)
 				return
 			}
 		}(bid)

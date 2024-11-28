@@ -20,6 +20,12 @@ type UserUseCase struct {
 	UserRepository user_entity.UserRepositoryInterface
 }
 
+func NewUserUseCase(userRepository user_entity.UserRepositoryInterface) UserUseCaseInterface {
+	return &UserUseCase{
+		UserRepository: userRepository,
+	}
+}
+
 func (u *UserUseCase) FindUserById(ctx context.Context, id string) (*UserOutputDTO, *internal_error.InternalError) {
 	user, err := u.UserRepository.FindUserByID(ctx, id)
 	if err != nil {
